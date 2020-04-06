@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 -- Proposal:https://github.com/smartdevicelink/sdl_evolution/blob/master/proposals/0256-Refactor-Fuel-Information-Related-Vehicle-Data.md
--- Description: The app is able to retrieve the parameter in case app version is more then parameter version
+-- Description: The app is able to retrieve the parameter in case app version is more than parameter version
 -- parameter is listed in DB and API
 -- In case:
 -- 1) App is registered with syncMsgVersion=6.4

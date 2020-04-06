@@ -11,6 +11,23 @@
 --[[ Required Shared libraries ]]
 local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
 
+--[[ Local Functions ]]
+local function sendOnVehicleData(pData)
+  common.getHMIConnection():SendNotification("VehicleInfo.OnVehicleData", { fuelRange = pData })
+  common.getMobileSession():ExpectNotification("OnVehicleData", { fuelRange = pData }):Times(1)
+  :ValidIf(function(_, data)
+    local count = 0
+    for _ in pairs(data.payload.fuelRange[1]) do
+      count = count + 1
+    end
+    if count ~= 1 then
+      return false, "Unexpected params are received in GetVehicleData response"
+    else
+      return true
+    end
+  end)
+end
+
 --[[ Scenario ]]
 common.Title("Preconditions")
 common.Step("Clean environment", common.preconditions)
@@ -22,7 +39,7 @@ common.Step("App subscribes to fuelRange data", common.subUnScribeVD, { "Subscri
 
 common.Title("Test")
 for k,v in pairs(common.allVehicleData) do
-  common.Step("HMI sends OnVehicleData with one param " .. k, common.sendOnVehicleData, { { { [k] = v } } })
+  common.Step("HMI sends OnVehicleData with one param " .. k, sendOnVehicleData, { { { [k] = v } } })
 end
 
 common.Title("Postconditions")

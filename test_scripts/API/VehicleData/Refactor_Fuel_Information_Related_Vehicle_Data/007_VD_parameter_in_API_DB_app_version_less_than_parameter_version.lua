@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 -- Proposal:https://github.com/smartdevicelink/sdl_evolution/blob/master/proposals/0256-Refactor-Fuel-Information-Related-Vehicle-Data.md
--- Description: The app is able to receive the parameters from HMI in case app version is less then parameters version,
+-- Description: The app is not able to receive the parameters from HMI in case app version is less than parameters version,
 -- parameter is listed in DB and API
 -- In case:
 -- 1) App is registered with syncMsgVersion=5.0

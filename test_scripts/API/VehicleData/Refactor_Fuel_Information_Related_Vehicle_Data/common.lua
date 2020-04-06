@@ -83,6 +83,29 @@ function m.getVehicleData(pData, pParam)
     m.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS", [pParam] = pData })
 end
 
+function m.getVehicleDataWithOneParam(pData)
+  local cid = m.getMobileSession():SendRPC("GetVehicleData", { fuelRange = true })
+    m.getHMIConnection():ExpectRequest("VehicleInfo.GetVehicleData", { fuelRange = true })
+    :Do(function(_,data)
+      m.getHMIConnection():SendResponse(data.id, data.method, "SUCCESS", { fuelRange = pData })
+    end)
+    m.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS", fuelRange = pData })
+    :ValidIf(function(_, data)
+      local count = 0
+      for _ in pairs(data.payload.fuelRange[1]) do
+        count = count + 1
+      end
+      print_table(data.payload.fuelRange[1])
+      -- if #data.payload.fuelRange[1] ~= 1 then
+      if count ~= 1 then
+        return false, "Unexpected params are received in GetVehicleData response"
+      else
+        print("EEEEEEEEEEEEEEEEEE", count)
+        return true
+      end
+    end)
+end
+
 --[[ subUnScribeVD: Processing SubscribeVehicleData and UnsubscribeVehicleData RPCs
 --! @parameters:
 --! pRPC - RPC for mobile request
