@@ -35,7 +35,7 @@ local function getVehicleData()
   :Do(function(_,data)
     common.getHMIConnection():SendResponse(data.id, data.method, "SUCCESS", { fuelRange = { common.allVehicleData } })
   end)
-  common.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS",  fuelRange = { expectedVehicleData } } )
+  common.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS", fuelRange = { expectedVehicleData } } )
   :ValidIf(function(_,data)
     if data.payload.fuelRange[1].level or
       data.payload.fuelRange[1].levelState or

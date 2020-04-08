@@ -15,20 +15,12 @@ local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_R
 local function getVDWithOneParam(pData)
   local cid = common.getMobileSession():SendRPC("GetVehicleData", { fuelRange = true })
   common.getHMIConnection():ExpectRequest("VehicleInfo.GetVehicleData", { fuelRange = true })
-    :Do(function(_,data)
-      common.getHMIConnection():SendResponse(data.id, data.method, "SUCCESS", { fuelRange = pData })
-    end)
-    common.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS", fuelRange = pData })
+  :Do(function(_,data)
+    common.getHMIConnection():SendResponse(data.id, data.method, "SUCCESS", { fuelRange = pData })
+  end)
+  common.getMobileSession():ExpectResponse(cid, { success = true, resultCode = "SUCCESS", fuelRange = pData })
   :ValidIf(function(_, data)
-    local count = 0
-    for _ in pairs(data.payload.fuelRange[1]) do
-      count = count + 1
-    end
-    if count ~= 1 then
-      return false, "Unexpected params are received in GetVehicleData response"
-    else
-      return true
-    end
+    return common.checkParam(data, "GetVehicleData")
   end)
 end
 
@@ -42,7 +34,7 @@ common.Step("Activate App", common.activateApp)
 
 common.Title("Test")
 for k,v in pairs(common.allVehicleData) do
-  common.Step("HMI sends response with " .. k, getVDWithOneParam, { { { [k] = v } }  })
+  common.Step("HMI sends response with " .. k, getVDWithOneParam, { { { [k] = v } } })
 end
 
 common.Title("Postconditions")

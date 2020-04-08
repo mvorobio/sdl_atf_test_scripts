@@ -29,7 +29,7 @@ common.Step("App subscribes to fuelRange data", common.subUnScribeVD, { "Subscri
 common.Title("Test")
 for k,_ in pairs(common.allVehicleData) do
   common.Step("HMI sends OnVehicleData with invalid " .. k .. "=" .. tostring(boolValue), common.sendOnVehicleData,
-    { { { [k] = boolValue } }, expTime  })
+    { { { [k] = boolValue } }, expTime })
 end
 
 common.Title("Postconditions")

@@ -16,15 +16,7 @@ local function sendOnVehicleData(pData)
   common.getHMIConnection():SendNotification("VehicleInfo.OnVehicleData", { fuelRange = pData })
   common.getMobileSession():ExpectNotification("OnVehicleData", { fuelRange = pData }):Times(1)
   :ValidIf(function(_, data)
-    local count = 0
-    for _ in pairs(data.payload.fuelRange[1]) do
-      count = count + 1
-    end
-    if count ~= 1 then
-      return false, "Unexpected params are received in GetVehicleData response"
-    else
-      return true
-    end
+    return common.checkParam(data, "OnVehicleData")
   end)
 end
 

@@ -51,8 +51,8 @@ m.respForDeprecatedParam = {
 }
 
 m.subVDdeprecatedParams = {
-  fuelLevel =  { dataType = "VEHICLEDATA_FUELLEVEL", resultCode = "SUCCESS" },
-  fuelLevel_State =  { dataType = "VEHICLEDATA_FUELLEVEL_STATE", resultCode = "SUCCESS" }
+  fuelLevel = { dataType = "VEHICLEDATA_FUELLEVEL", resultCode = "SUCCESS" },
+  fuelLevel_State = { dataType = "VEHICLEDATA_FUELLEVEL_STATE", resultCode = "SUCCESS" }
 }
 
 --[[ Functions ]]
@@ -65,6 +65,24 @@ m.subVDdeprecatedParams = {
 function m.pTUpdateFunc(tbl)
   tbl.policy_table.app_policies[config.application1.registerAppInterfaceParams.fullAppID].groups = {"Base-4", "VehicleInfo-3"}
   tbl.policy_table.functional_groupings["VehicleInfo-3"].user_consent_prompt = nil
+end
+
+--[[ checkParam: Check the absence of unexpected params in GetVehicleData and OnVehicleData on the mobile app side
+--! @parameters:
+--! pData - parameters for mobile response/notification
+--! pRPC - RPC for mobile request/notification
+--! @return: none
+--]]
+function m.checkParam(pData, pRPC)
+  local count = 0
+  for _ in pairs(pData.payload.fuelRange[1]) do
+    count = count + 1
+  end
+  if count ~= 1 then
+    return false, "Unexpected params are received in " .. pRPC
+  else
+    return true
+  end
 end
 
 --[[ getVehicleData: Processing GetVehicleData RPC

@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 -- Proposal:https://github.com/smartdevicelink/sdl_evolution/blob/master/proposals/0256-Refactor-Fuel-Information-Related-Vehicle-Data.md
--- Description: Description: SDL sends respond GENERIC_ERROR to app in case HMI sends the response with invalid `FuelRange` structure
+-- Description: SDL sends respond GENERIC_ERROR to app in case HMI sends the response with invalid `FuelRange` structure
 -- In case:
 -- 1) App sends GetVehicleData(FuelRange:true) request
 -- 2) SDL transfers this request to HMI

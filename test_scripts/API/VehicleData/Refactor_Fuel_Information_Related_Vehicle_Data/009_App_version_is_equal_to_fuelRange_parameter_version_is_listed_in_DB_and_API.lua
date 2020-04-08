@@ -9,7 +9,7 @@
 -- 4) App requests GetVehicleData(fuelRange)
 -- 5) HMI sends GetVehicleData response with new parameters in `FuelRange` structure
 -- SDL does:
---  a) proces the response successful
+--  a) process the response successful
 --  b) resend GetVehicleData response from HMI to mobile app as is
 -- 6) HMI sends valid OnVehicleData notification with all parameters of `FuelRange` structure
 -- SDL does:
