@@ -17,7 +17,7 @@
 --  b) send OnVehicleData notification to app without new params of structure `FuelRange`
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 -- [[ Test Configuration ]]
 config.application1.registerAppInterfaceParams.syncMsgVersion.majorVersion = 5

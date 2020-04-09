@@ -9,7 +9,7 @@
 -- 1) respond with resultCode:"SUCCESS" to app with only one param
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 --[[ Local Functions ]]
 local function getVDWithOneParam(pData)

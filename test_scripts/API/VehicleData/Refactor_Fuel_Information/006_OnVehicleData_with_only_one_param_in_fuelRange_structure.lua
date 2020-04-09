@@ -9,7 +9,7 @@
 -- 1) process this notification and transfer it to mobile app
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 --[[ Local Functions ]]
 local function sendOnVehicleData(pData)

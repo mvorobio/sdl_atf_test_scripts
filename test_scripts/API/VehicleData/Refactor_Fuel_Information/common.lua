@@ -71,7 +71,7 @@ end
 --! @parameters:
 --! pData - parameters for mobile response/notification
 --! pRPC - RPC for mobile request/notification
---! @return: none
+--! @return: true - in case response/notification does not contain unexpected params, otherwise - false
 --]]
 function m.checkParam(pData, pRPC)
   local count = 0

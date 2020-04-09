@@ -9,7 +9,7 @@
 -- 1) respond GENERIC_ERROR to mobile when default timeout expired
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 --[[ Local Functions ]]
 local function processGetVDunsuccess(pData)

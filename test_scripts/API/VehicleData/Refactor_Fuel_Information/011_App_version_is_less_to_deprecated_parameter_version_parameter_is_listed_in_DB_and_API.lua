@@ -24,7 +24,7 @@
 --  b) respond with resultCode:"SUCCESS" to mobile application for fuelLevel and fuelLevel_State
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 -- [[ Test Configuration ]]
 config.application1.registerAppInterfaceParams.syncMsgVersion.majorVersion = 5

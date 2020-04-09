@@ -10,7 +10,7 @@
 -- 1) send GetVehicleData response to mobile with all parameters in `FuelRange` structure
 ---------------------------------------------------------------------------------------------------
 --[[ Required Shared libraries ]]
-local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information_Related_Vehicle_Data/common')
+local common = require('test_scripts/API/VehicleData/Refactor_Fuel_Information/common')
 
 --[[ Scenario ]]
 common.Title("Preconditions")
