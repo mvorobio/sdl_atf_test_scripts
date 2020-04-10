@@ -20,6 +20,7 @@ common.Step = runner.Step
 common.start = actions.start
 common.stopSDL = actions.sdl.stop
 common.getHMIConnection = actions.hmi.getConnection
+common.getHMIAppId = actions.app.getHMIId
 common.registerApp = actions.registerApp
 common.registerAppWOPTU = actions.registerAppWOPTU
 common.activateApp = actions.activateApp
