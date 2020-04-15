@@ -11,19 +11,27 @@
 -- Sequence:
 -- 1. HMI sends BC.OnExitApplication with 'reason' = "RESOURCE_CONSTRAINT" to SDL
 --  a. Web app is unregistered
+--  b. Mobile session is disconnected
 ---------------------------------------------------------------------------------------------------
 --[[ General test configuration ]]
 config.defaultMobileAdapterType = "WS"
 
 --[[ Required Shared libraries ]]
+local events = require("events")
 local common = require('test_scripts/WebEngine/commonWebEngine')
 
 --[[ Local Functions ]]
 local function onExitApp()
   local appID = common.getHMIAppId()
-  common.getHMIConnection():ExpectNotification("BasicCommunication.OnAppUnregistered", {unexpectedDisconnect = false, appID = appID})
-  common.getMobileSession():ExpectNotification("OnAppInterfaceUnregistered", {reason = "RESOURCE_CONSTRAINT"})
-  common.getHMIConnection():SendNotification("BasicCommunication.OnExitApplication", {reason = "RESOURCE_CONSTRAINT", appID = appID})
+  local hmiConnection = common.getHMIConnection()
+  local mobileSession = common.getMobileSession()
+  hmiConnection:ExpectNotification("BasicCommunication.OnAppUnregistered",
+      { unexpectedDisconnect = false, appID = appID })
+  mobileSession:ExpectNotification("OnAppInterfaceUnregistered",
+      { reason = "RESOURCE_CONSTRAINT" })
+  mobileSession:ExpectEvent(events.disconnectedEvent, "Disconnected")
+  hmiConnection:SendNotification("BasicCommunication.OnExitApplication",
+      { reason = "RESOURCE_CONSTRAINT", appID = appID })
 end
 
 -- [[ Scenario ]]
@@ -32,7 +40,8 @@ common.Step("Clean environment", common.preconditions)
 common.Step("Start SDL, HMI", common.startWOdeviceConnect)
 
 common.Title("Test")
-common.Step("Connect WebEngine device", common.connectWebEngine, { 1, config.defaultMobileAdapterType })
+common.Step("Connect WebEngine device", common.connectWebEngine,
+    { 1, config.defaultMobileAdapterType })
 common.Step("Register App", common.registerApp)
 common.Step("OnExitApplication", onExitApp)
 
